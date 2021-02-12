@@ -4,6 +4,7 @@ namespace It20Academy\App\Models;
 
 class Post
 {
+    private $id;
     private $title;
     private $content;
     private $author;
@@ -19,6 +20,7 @@ class Post
 
         return array_map(function ($initialPost) {
             $post = new self;
+            $post->setId($initialPost['id']);
             $post->setTitle($initialPost['title']);
             $post->setContent($initialPost['content']);
             $post->setAuthor($initialPost['author']);
@@ -28,6 +30,16 @@ class Post
 
             return $post;
         }, $posts);
+    }
+
+    public function setId($id): void 
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
 
