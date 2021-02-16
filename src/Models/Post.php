@@ -2,102 +2,117 @@
 
 namespace It20Academy\App\Models;
 
+use It20Academy\App\Core\Db;
+
 class Post
 {
-    private $id;
-    private $title;
-    private $content;
-    private $author;
-    private $status;
-    private $category;
-    private $img;
+    private int $id;
+    private string $title;
+    private string $content;
+    private int $author;
+    private int $status;
+    private int $category;
+    private string $img;
 
     public static function all(): array
     {
-        $db = require_once '../storage/db.php';
-        dump($db);
-        $posts = isset($db['posts']) ? $db['posts'] : [];
+        $dbh = (new Db())->getHandler();
+        $statment = $dbh->query('select * from posts');
+        $initialPosts = $statment->fetchAll();
 
         return array_map(function ($initialPost) {
             $post = new self;
             $post->setId($initialPost['id']);
             $post->setTitle($initialPost['title']);
             $post->setContent($initialPost['content']);
-            $post->setAuthor($initialPost['author']);
-            $post->setStatus($initialPost['status']);
-            $post->setCategory($initialPost['category']);
+            $post->setAuthor($initialPost['author_id']);
+            $post->setStatus($initialPost['status_id']);
+            $post->setCategory($initialPost['category_id']);
             $post->setImg($initialPost['img']);
 
             return $post;
-        }, $posts);
+        }, $initialPosts);
     }
 
-    public function setId($id): void 
+    /**@param int $id */
+    public function setId(int $id): void 
     {
         $this->id = $id;
     }
 
-    public function getId()
+    /**@return int */
+    public function getId(): int
     {
         return $this->id;
     }
 
-
+    /**@param string $title */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
+    /**@return string */
     public function getTitle(): string
     {
         return $this->title;
     }
 
+    /**@param string $content */
     public function setContent(string $content): void 
     {
         $this->content = $content;
     }
 
+    /**@return string */
     public function getContent(): string 
     {
         return $this->content;
     }
 
-    public function setAuthor($author): void 
+    /**@param int $author */
+    public function setAuthor(int $author): void 
     {
         $this->author = $author;
     }
 
+    /**@return int */
     public function getAuthor()
     {
         $this->author;
     }
 
-    public function setStatus($status): void 
+    /**@param int $status */
+    public function setStatus(int $status): void 
     {
         $this->status = $status;
     }
 
+    /**@return int */
     public function getStatus()
     {
         $this->status;
     }
 
-    public function setCategory($category): void
+    /**@param int $category */
+    public function setCategory(int $category): void
     {
         $this->category = $category;
     }
 
+    /**@return int */
     public function getCategory() 
     {
         $this->category;
     }
 
-    public function setImg($img): void 
+    /**@param string $img */
+    public function setImg(string $img): void 
     {
         $this->img = $img;
     }
 
+    /**@return string */
     public function getImg()
     {
         $this->img;
