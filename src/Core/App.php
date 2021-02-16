@@ -9,7 +9,7 @@ class App
         $request = new Request();
 
         if (! $request->validateCommand()) {
-            dump('Invalid data');
+            dump('Invalid command');
 
             return false;
         }
@@ -18,6 +18,8 @@ class App
         $method = $request->getMethod();
 
         $controller = new $controllerName; // It20Academy\App\Controllers\PostsController
+        
         $controller->$method();
+        
     }
 }

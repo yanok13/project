@@ -4,9 +4,9 @@ namespace It20Academy\App\Core;
 
 class Request
 {
-    private $controller = 'IndexController';
+    private string $controller = 'Index';
 
-    private $method = 'index';
+    private string $method = 'index';
 
     public function __construct()
     {
